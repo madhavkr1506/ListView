@@ -20,6 +20,10 @@ class MainActivity : AppCompatActivity() {
         ActivityMainBinding.inflate(layoutInflater);
     }
 
+    private lateinit var fruits : MutableList<String>;
+    private lateinit var color : MutableList<String>;
+    private lateinit var adapter : CustomAdapter;
+
     private val fragment : FragmentObject = FragmentObject();
     private val fm : FragmentManager = supportFragmentManager;
 
@@ -31,12 +35,12 @@ class MainActivity : AppCompatActivity() {
         binding.shimmer.startShimmer();
 
 
-        val fruits = listOf("Apple", "Orange", "Pineapple", "Strawberry", "Watermelon", "Blueberry", "Kiwi", "Cherry", "Peach", "Plum",
+        fruits = mutableListOf("Apple", "Orange", "Pineapple", "Strawberry", "Watermelon", "Blueberry", "Kiwi", "Cherry", "Peach", "Plum",
             "Pear", "Fig", "Pomegranate", "Coconut", "Lime", "Lychee", "Dragonfruit", "Apricot", "Cranberry", "Blackberry",
             "Raspberry", "Durian", "Jackfruit", "Avocado", "Starfruit", "Mulberry", "Persimmon", "Gooseberry", "Tangerine", "Passionfruit",
             "Nectarine", "Quince", "Date", "Cantaloupe", "Honeydew", "Guarana", "Jujube", "Sapodilla", "Soursop", "Ugli fruit",
             "Elderberry", "Kumquat", "Mandarin", "Boysenberry", "Loganberry", "Yumberry", "Tamarind", "Bilberry", "Breadfruit", "Salak");
-        val color = listOf("Red", "Orange", "Yellow", "Red", "Green", "Blue", "Green", "Red", "Orange", "Purple",
+        color = mutableListOf("Red", "Orange", "Yellow", "Red", "Green", "Blue", "Green", "Red", "Orange", "Purple",
             "Green", "Brown", "Red", "White", "Green", "Pink", "Pink", "Orange", "Red", "Black",
             "Red", "Yellow", "Green", "Green", "Yellow", "Red", "Orange", "Green", "Orange", "Yellow",
             "Red", "Yellow", "Brown", "Orange", "Green", "Brown", "Red", "Brown", "Green", "Orange",
@@ -44,7 +48,7 @@ class MainActivity : AppCompatActivity() {
 
 
 
-        val adapter = CustomAdapter(this,fruits, color);
+        adapter = CustomAdapter(this,fruits, color);
         binding.listview.adapter = adapter;
 
 
@@ -59,6 +63,23 @@ class MainActivity : AppCompatActivity() {
             val selectedContent = "${fruits[position]}\n${color[position]}";
             showFragment(selectedContent);
         }
+
+
+        binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                query?.let{
+                    adapter.filter(it);
+                };
+                return true;
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                newText?.let{
+                    adapter.filter(it);
+                };
+                return true;
+            }
+        })
 
     }
 

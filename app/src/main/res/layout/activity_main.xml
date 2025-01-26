@@ -19,18 +19,25 @@
         app:titleTextColor="@color/white"
         />
 
+
     <com.facebook.shimmer.ShimmerFrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/shimmer"
         >
 
+        <SearchView
+            android:id="@+id/shimmer_search"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="70dp"
+            />
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:padding="20dp"
             android:id="@+id/shimmer_container"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="110dp"
             >
             <ListView
                 android:id="@+id/shimmer_listview"
@@ -41,12 +48,19 @@
         </FrameLayout>
     </com.facebook.shimmer.ShimmerFrameLayout>
 
+    <SearchView
+        android:id="@+id/searchView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="70dp"
+        />
+
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="20dp"
         android:id="@+id/container"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="110dp"
         >
         <ListView
             android:id="@+id/listview"
